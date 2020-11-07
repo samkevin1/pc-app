@@ -3,7 +3,7 @@ const tintColorDark = '#fff';
 
 export default {
   primary: {
-    primary: '#BC4300',
+    primary: '#0645AD',
     light: '#E65100',
   },
   light: {
