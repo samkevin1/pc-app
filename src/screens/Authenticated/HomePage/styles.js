@@ -3,8 +3,8 @@ import {StyleSheet} from "react-native";
 const styles = StyleSheet.create({
   container: {
     height:'100%',
-    margin: 15,
-    marginTop: 40
+    marginTop: 40,
+    margin: 15
   },
   item: {
     backgroundColor: '#f5f5f5',
@@ -17,8 +17,26 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   text: {
-    fontWeight: '600'
-  }
+    fontWeight: '700'
+  },
+  aVista: {
+    fontWeight: 'bold',
+    color: 'green',
+    fontSize: 17
+  },
+  destaque: {
+    flex: 3,
+    backgroundColor: '#f5f5f5'
+  },
+  oferta: {
+    flex: 1,
+    borderColor: '#ccc',
+  },
+  leftHr: {
+    borderBottomWidth: 0.5,
+    borderColor:'black'
+  },
+
 });
 
 export default styles;

@@ -4,38 +4,36 @@ import Constants from 'expo-constants';
 import { ListItem, Icon, Avatar } from 'react-native-elements';
 import { Card } from 'react-native-paper';
 import styles from './styles';
+import DATA from '../data';
 
-const DATA = [
-  {
-    id: '1',
-    img: '../../../helpers/imgs/pc1.jpg',
-    title: 'Computador Valorant Raze , i3-9100F, GeForce GTX 1650 4GB, 8GB...',
-    details: 'R$ 2500'
-  },
-  {
-    id: '2',
-    img: '../../../helpers/imgs/pc2.jpg',
-    title: 'Computador Samsung , i5-9100F, GeForce GTX 3080 10GB, 16GB...',
-    details: 'R$ 3000'
-  },
-  {
-    id: '3',
-    img: '../../../helpers/imgs/pc3.jpg',
-    title: 'Computador Dell , i7-9100F, GeForce GTX 3090 24GB, 32GB...',
-    details: 'R$ 3500'
-  },
-];
+const HomePage = ({ navigation }) => {
 
-const HomePage = () => {
-
-
-  const renderItem = ({ item }) => (
+  const verticalRenderItem = ({ item }) => (
     <TouchableOpacity>
-      <ListItem bottomDivider>
+      <ListItem bottomDivider
+                onPress={() => navigation.navigate('Details', {id: item.id})}
+      >
         <Avatar source={{uri: item.img}} />
         <ListItem.Content>
-          <ListItem.Title style={styles.text}>{item.title}</ListItem.Title>
-          <ListItem.Subtitle>{item.details}</ListItem.Subtitle>
+          <ListItem.Title style={styles.text}>{item.title}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
+          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 á vista</ListItem.Subtitle>
+          <ListItem.Subtitle>R$ {item.prazo},00 em até 12x</ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
+    </TouchableOpacity>
+  );
+
+  const horizontalRenderItem = ({ item }) => (
+    <TouchableOpacity>
+      <ListItem containerStyle={{width: 300, color: '#ccc', borderRadius: 5, borderColor: '#ccc'}}
+                onPress={() => navigation.navigate('Details', {id: item.id})}
+      >
+        <Avatar source={{uri: item.img}} />
+        <ListItem.Content>
+          <ListItem.Title style={styles.text}>{item.title}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
+          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 á vista</ListItem.Subtitle>
+          <ListItem.Subtitle>R$ {item.prazo},00 em até 12x</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
@@ -44,11 +42,35 @@ const HomePage = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      <View style={styles.oferta}>
+        <Text style={{fontSize: 15, fontWeight: '700', marginBottom: 10}}>Ofertas</Text>
+        <FlatList
+          horizontal
+          data={DATA}
+          renderItem={horizontalRenderItem}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={() => {
+            return (
+              <View
+                style={{
+                  height: "100%",
+                  width: 20,
+                  backgroundColor: "#f5f5f5",
+
+                }}
+              />
+            );
+          }}
+        />
+      </View>
+      <View style={styles.destaque}>
+        <Text style={{fontSize: 15, fontWeight: '700', marginBottom: 10}}>Produtos em destaque</Text>
+        <FlatList
+          data={DATA}
+          renderItem={verticalRenderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </View>
   );
 }

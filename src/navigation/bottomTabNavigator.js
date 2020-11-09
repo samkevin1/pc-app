@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Colors from '../constants/color';
 import HomePage from '../screens/Authenticated/HomePage/index';
+import Details from '../screens/Authenticated/Details/index';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -20,7 +21,7 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Início',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
@@ -46,6 +47,16 @@ function HomeNavigator() {
             headerTitle: 'Home',
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
+          }
+        }
+      />
+      <FeedStack.Screen
+        name="Details"
+        component={Details}
+        options={
+          {
+            headerTitle: 'Details',
+            headerStyle: { backgroundColor: '#ccc' },
           }
         }
       />
