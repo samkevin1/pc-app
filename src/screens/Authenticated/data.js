@@ -7,8 +7,8 @@ const DATA = [
     processador: 'i3-9100F',
     placaVideo: 'GeForce GTX 1650 4GB',
     ram: '8GB',
-    vista: '2500',
-    prazo: '2750'
+    vista: 2500,
+    prazo: 2750
   },
   {
     id: '2',

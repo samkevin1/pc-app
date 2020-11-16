@@ -2,8 +2,9 @@ import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    height:'100%',
-    backgroundColor: '#f5f5f5'
+    padding: 40,
+    backgroundColor: '#f5f5f5',
+    height: '100%'
   },
   modal: {
     backgroundColor: '#FFF',
@@ -29,16 +30,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     margin: 10,
-
   },
   strikeThrough: {
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid'
   },
-  text: {
+  fadedText: {
     fontWeight: '600',
     color: '#999999',
     fontSize: 15,
+    margin: 10
+  },
+  text: {
+    fontWeight: '700',
+    fontSize: 17,
     margin: 10
   },
   aVista: {
