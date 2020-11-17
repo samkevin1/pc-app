@@ -11,7 +11,7 @@ const Details = ({ navigation, route }) => {
   const discount = Math.round((parseInt(product.prazo) - parseInt(product.vista)) / parseInt(product.prazo) * 100);
 
   return(
-    <View style={{flex:1}}>
+    <ScrollView style={{ flex:1 }}>
       <View style={{flexDirection: 'row', marginTop: 40, marginLeft: 15, marginBottom: 5}}>
         <TouchableOpacity onPress={navigation.goBack}>
           <Icon
@@ -78,7 +78,7 @@ const Details = ({ navigation, route }) => {
           <Text style={{ fontWeight: '600', marginLeft:10, marginBottom: 10 }}>Ram: {product.ram}</Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 };
 

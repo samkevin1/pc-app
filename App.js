@@ -5,6 +5,8 @@ import Routes from './src/navigation/index';
 
 export default function App() {
   return (
-    <Routes />
+    <View style={{ flex: 1 }}>
+      <Routes />
+    </View>
   );
 }
