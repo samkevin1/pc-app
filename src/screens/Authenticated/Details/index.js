@@ -17,6 +17,7 @@ const Details = ({ navigation, route }) => {
           <Icon
             name='ios-arrow-round-back'
             type='ionicon'
+            onPress={() => navigation.goBack()}
             iconStyle={{color: '#0645AD'}}
           />
         </TouchableOpacity>
