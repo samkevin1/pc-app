@@ -4,6 +4,7 @@ import * as React from 'react';
 import Colors from '../constants/color';
 import HomePage from '../screens/Authenticated/HomePage/index';
 import Details from '../screens/Authenticated/Details/index';
+import Cart from '../screens/Authenticated/Cart/index';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -56,6 +57,16 @@ function HomeNavigator() {
         options={
           {
             headerTitle: 'Details',
+            headerStyle: { backgroundColor: '#ccc' },
+          }
+        }
+      />
+      <FeedStack.Screen
+        name="Cart"
+        component={Cart}
+        options={
+          {
+            headerTitle: 'Cart',
             headerStyle: { backgroundColor: '#ccc' },
           }
         }

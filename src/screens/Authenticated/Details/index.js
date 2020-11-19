@@ -20,7 +20,7 @@ const Details = ({ navigation, route }) => {
             iconStyle={{color: '#0645AD'}}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginLeft: 350 }}>
+        <TouchableOpacity style={{ marginLeft: 350 }} onPress={navigation.navigate('Cart')}>
           <Icon
             name='ios-cart'
             type='ionicon'
