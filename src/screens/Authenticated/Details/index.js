@@ -11,24 +11,29 @@ const Details = ({ navigation, route }) => {
   const discount = Math.round((parseInt(product.prazo) - parseInt(product.vista)) / parseInt(product.prazo) * 100);
 
   return(
-    <ScrollView style={{ flex:1 }}>
-      <View style={{flexDirection: 'row', marginTop: 40, marginLeft: 15, marginBottom: 5}}>
+    <ScrollView>
+      <View style={{ marginTop: 30, flexDirection: 'row', marginLeft: 15, marginBottom: 5, justifyContent: "space-between" }}>
         <TouchableOpacity onPress={navigation.goBack}>
           <Icon
             name='ios-arrow-round-back'
             type='ionicon'
+            onPress={() => navigation.goBack()}
             iconStyle={{color: '#0645AD'}}
           />
         </TouchableOpacity>
+<<<<<<< HEAD
         <TouchableOpacity style={{ marginLeft: 350 }} onPress={navigation.navigate('Cart')}>
+=======
+        <TouchableOpacity>
+>>>>>>> 08f8053880e7aec897f177f10b7b8559964a4ffa
           <Icon
             name='ios-cart'
             type='ionicon'
-            iconStyle={{color: '#0645AD'}}
+            iconStyle={{color: '#0645AD', marginRight: 20}}
           />
         </TouchableOpacity>
       </View>
-        <Avatar source={{uri: product.img}} containerStyle={{ width: '100%', height: '35%'}}/>
+      <Avatar source={{uri: product.img}} containerStyle={{ width: '100%', height: 250}}/>
       <View style={styles.modalTitle}>
         <Text style={styles.title}>{product.title}, {product.processador}, {product.placaVideo}, {product.ram}</Text>
       </View>
