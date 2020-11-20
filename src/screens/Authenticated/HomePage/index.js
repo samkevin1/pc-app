@@ -12,17 +12,7 @@ import api, { eps } from '../../../services/api';
 
 const HomePage = ({ navigation }) => {
 
-  const [produtos, setProdutos] = useState([]);
-  const userId = getUser();
 
-  useEffect(() => {
-    api.get(eps.produtoGetAll, { userId: user._id }).then((response) => {
-        if (response.data.success) {
-            setProdutos(response.data.data);
-            console.log(produtos);
-        }
-    });
-  }, [])
 
   const verticalRenderItem = ({ item }) => (
     <TouchableOpacity>

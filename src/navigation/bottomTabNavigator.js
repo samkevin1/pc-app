@@ -5,6 +5,7 @@ import Colors from '../constants/color';
 import HomePage from '../screens/Authenticated/HomePage/index';
 import Details from '../screens/Authenticated/Details/index';
 import Cart from '../screens/Authenticated/Cart/index';
+import MyProfile from '../screens/Authenticated/MyProfile/index';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -24,6 +25,14 @@ export default function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Início',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Meu Perfil"
+        component={MyProfileNavigator}
+        options={{
+            tabBarLabel: 'Meu Perfil',
+            tabBarIcon: ({ color }) => <TabBarIcon name="account" color={color} />,
         }}
       />
 
@@ -68,6 +77,24 @@ function HomeNavigator() {
           {
             headerTitle: 'Cart',
             headerStyle: { backgroundColor: '#ccc' },
+          }
+        }
+      />
+    </FeedStack.Navigator>
+  );
+}
+
+function MyProfileNavigator() {
+  return (
+    <FeedStack.Navigator screenOptions={{headerShown: false}}>
+      <FeedStack.Screen
+        name="MyProfile"
+        component={MyProfile}
+        options={
+          {
+            headerTitle: 'MyProfile',
+            headerStyle: { backgroundColor: '#FFFF' },
+            headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
         }
       />
