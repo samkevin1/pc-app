@@ -1,12 +1,28 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text, View, FlatList, SafeAreaView, StatusBar, TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 import { ListItem, Icon, Avatar } from 'react-native-elements';
 import { Card } from 'react-native-paper';
+import { axios } from 'axios';
+
+import { handleLogout, getUser } from '../../../services/authJwt';
 import styles from './styles';
 import DATA from '../data';
+import api, { eps } from '../../../services/api';
 
 const HomePage = ({ navigation }) => {
+
+  const [produtos, setProdutos] = useState([]);
+  const userId = getUser();
+
+  useEffect(() => {
+    api.get(eps.produtoGetAll, { userId: user._id }).then((response) => {
+        if (response.data.success) {
+            setProdutos(response.data.data);
+            console.log(produtos);
+        }
+    });
+  }, [])
 
   const verticalRenderItem = ({ item }) => (
     <TouchableOpacity>

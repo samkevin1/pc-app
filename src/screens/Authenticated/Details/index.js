@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {Text, View, FlatList, SafeAreaView, StatusBar, TouchableOpacity, ScrollView} from 'react-native';
+import React from 'react';
+import {Text, View, FlatList, SafeAreaView, StatusBar, TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
 import {Icon, Avatar, ListItem} from 'react-native-elements';
 import styles from './styles';
 import DATA from "../data";
@@ -10,22 +10,44 @@ const Details = ({ navigation, route }) => {
   const price = parseInt(product.vista) + 500;
   const discount = Math.round((parseInt(product.prazo) - parseInt(product.vista)) / parseInt(product.prazo) * 100);
 
+  const addToCart = (data) => {
+    data = product
+    const itemCart = {
+      data: data,
+      quantity: 1,
+      price: data.prazo
+    }
+
+    AsyncStorage.getItem("cart").then((datacart)=>{
+
+      if(datacart !== null){
+        const cart  = JSON.parse(datacart);
+        cart.push(datacart);
+        AsyncStorage.setItem("cart", JSON.stringify(cart));
+        console.log(cart);
+      }else{
+        const cart = [];
+        cart.push(itemCart)
+        AsyncStorage.setItem("cart", JSON.stringify(cart))
+      }
+      alert("Adiciondo com sucesso!")
+    })
+      .catch((error)=>{
+        alert("err")
+      })
+  }
+
   return(
     <ScrollView>
-      <View style={{ marginTop: 30, flexDirection: 'row', marginLeft: 15, marginBottom: 5, justifyContent: "space-between" }}>
+      <View style={styles.iconContainer}>
         <TouchableOpacity onPress={navigation.goBack}>
           <Icon
             name='ios-arrow-round-back'
             type='ionicon'
-            onPress={() => navigation.goBack()}
             iconStyle={{color: '#0645AD'}}
           />
         </TouchableOpacity>
-<<<<<<< HEAD
-        <TouchableOpacity style={{ marginLeft: 350 }} onPress={navigation.navigate('Cart')}>
-=======
-        <TouchableOpacity>
->>>>>>> 08f8053880e7aec897f177f10b7b8559964a4ffa
+        <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
           <Icon
             name='ios-cart'
             type='ionicon'
@@ -59,7 +81,7 @@ const Details = ({ navigation, route }) => {
           </View>
         </View>
         <View style={styles.modal}>
-          <TouchableOpacity style={{margin: 10, alignSelf:'flex-start', flexDirection: 'row'}}>
+          <TouchableOpacity style={{margin: 10, alignSelf:'flex-start', flexDirection: 'row'}} onPress={() => addToCart(product)}>
             <Icon
               name='ios-cart'
               type='ionicon'
@@ -79,8 +101,10 @@ const Details = ({ navigation, route }) => {
         </View>
         <View style={styles.modal}>
           <Text style={styles.text}>Especificações</Text>
-          <Text style={{ fontWeight: '600', marginLeft:10, marginBottom: 10 }}>Processador: {product.processador}</Text>
-          <Text style={{ fontWeight: '600', marginLeft:10, marginBottom: 10 }}>Ram: {product.ram}</Text>
+          <Text style={styles.specifications}>Marca: {product.title}</Text>
+          <Text style={styles.specifications}>Processador: {product.processador}</Text>
+          <Text style={styles.specifications}>Ram: {product.ram}</Text>
+          <Text style={styles.specifications}>Placa de vídeo: {product.placaVideo}</Text>
         </View>
       </View>
     </ScrollView>
