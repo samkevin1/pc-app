@@ -2,10 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Colors from '../constants/color';
-import HomePage from '../screens/Authenticated/HomePage/index';
-import Details from '../screens/Authenticated/Details/index';
-import Cart from '../screens/Authenticated/Cart/index';
-import MyProfile from '../screens/Authenticated/MyProfile/index';
+import { Cart, Details, EditPassword, EditPage, HomePage, MyProfile, EditData } from '../screens/index';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -92,7 +89,40 @@ function MyProfileNavigator() {
         component={MyProfile}
         options={
           {
+            headerTitle: 'EditPage',
+            headerStyle: { backgroundColor: '#FFFF' },
+            headerTitleStyle: { fontSize: 20, color: "#414141" }
+          }
+        }
+      />
+      <FeedStack.Screen
+        name="EditPage"
+        component={EditPage}
+        options={
+          {
             headerTitle: 'MyProfile',
+            headerStyle: { backgroundColor: '#FFFF' },
+            headerTitleStyle: { fontSize: 20, color: "#414141" }
+          }
+        }
+      />
+      <FeedStack.Screen
+        name="EditPassword"
+        component={EditPassword}
+        options={
+          {
+            headerTitle: 'EditPassword',
+            headerStyle: { backgroundColor: '#FFFF' },
+            headerTitleStyle: { fontSize: 20, color: "#414141" }
+          }
+        }
+      />
+      <FeedStack.Screen
+        name="EditData"
+        component={EditData}
+        options={
+          {
+            headerTitle: 'EditData',
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }

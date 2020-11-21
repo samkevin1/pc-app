@@ -34,7 +34,7 @@ const MyProfile =({ navigation }) => {
           <Text style={styles.title}>
             Nome do usuário
           </Text>
-          <TouchableOpacity style={{ marginTop: 15 }}>
+          <TouchableOpacity style={{ marginTop: 15 }} onPress={() => navigation.navigate("EditPage")}>
             <View style={styles.button}>
               <Text style={styles.label}>EDITAR</Text>
             </View>
@@ -54,7 +54,7 @@ const MyProfile =({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.modal}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("EditPage")}>
             <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
               <Icon
                 name='ios-person'
