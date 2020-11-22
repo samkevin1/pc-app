@@ -5,3 +5,4 @@ export { default as EditPage } from './Authenticated/EditPage/index';
 export { default as HomePage } from './Authenticated/HomePage/index';
 export { default as MyProfile } from './Authenticated/MyProfile/index';
 export { default as EditData } from './Authenticated/EditData/index';
+export { default as MyPurchases } from './Authenticated/MyPurchases/index';

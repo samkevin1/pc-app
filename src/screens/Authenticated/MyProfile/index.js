@@ -41,7 +41,7 @@ const MyProfile =({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.modal}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("MyPurchases")}>
             <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
               <Icon
                 name='ios-albums'

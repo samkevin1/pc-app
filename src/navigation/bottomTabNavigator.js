@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Colors from '../constants/color';
-import { Cart, Details, EditPassword, EditPage, HomePage, MyProfile, EditData } from '../screens/index';
+import { Cart, Details, EditPassword, EditPage, HomePage, MyProfile, EditData, MyPurchases } from '../screens/index';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -123,6 +123,17 @@ function MyProfileNavigator() {
         options={
           {
             headerTitle: 'EditData',
+            headerStyle: { backgroundColor: '#FFFF' },
+            headerTitleStyle: { fontSize: 20, color: "#414141" }
+          }
+        }
+      />
+      <FeedStack.Screen
+        name="MyPurchases"
+        component={MyPurchases}
+        options={
+          {
+            headerTitle: 'MyPurchases',
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
