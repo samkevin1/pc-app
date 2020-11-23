@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, TextInput as TextInputRN, TouchableOpacity } from 'react-native';
+import {
+   ScrollView, 
+   Text, 
+   View, 
+   TextInput as TextInputRN, 
+   TouchableOpacity,
+   Alert
+} from 'react-native';
 import { STEPS } from './formSteps';
 import TextInput from '../../../components/TextInput/index';
 import SimpleStep from '../../../components/SimpleStep/index';
 import { Button, Icon } from "react-native-elements";
 import styles from './styles';
+import {
+  useDispatch,
+  useSelector
+} from "react-redux";
+
+import {
+  registerUser
+} from "../../../store/actions/auth/index";
 
 const UserRegister = () => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((s) => s.auth);
   const [currentStep, setCurrentStep]  = useState(STEPS.find((s) => s.value === 1));
 
   const [user, setUser] = useState({
@@ -16,30 +33,44 @@ const UserRegister = () => {
     cpf: '',
     birthDate: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: "adc"
   });
 
+  const handleSubmit = () => {
+    console.log('user', user)
+    dispatch(
+      registerUser(user, (err, res) => {
+        if(err) {
+          Alert.alert("Atencao!", err);
+        } else {
+          console.log(res)
+        }
+      })
+    )
+  }
+ 
   const changeStep = async (action = "next", step) => {
     if(currentStep.value === STEPS[0].value && !user.name && action === "next"){
-      alert.error('Atenção', "Informe o seu nome para prosseguir.");
+      Alert.alert('Atenção', "Informe o seu nome para prosseguir.");
     }
     else if(currentStep.value === STEPS[1].value && !user.lastName && action === "next"){
-      alert.error('Atenção', "Informe o seu sobrenome para prosseguir.");
+      Alert.alert('Atenção', "Informe o seu sobrenome para prosseguir.");
     }
     else if(currentStep.value === STEPS[2].value && !user.email && action === "next"){
-      alert.error('Atenção', "Informe o seu e-mail!");
+      Alert.alert('Atenção', "Informe o seu e-mail!");
     }
     else if(currentStep.value === STEPS[3].value && user.cpf < 1 && action === "next"){
-      alert.error('Atenção', "Informe o seu CPF.");
+      Alert.alert('Atenção', "Informe o seu CPF.");
     }
     else if(currentStep.value === STEPS[4].value && !user.birthDate && action === "next"){
-      alert.error('Atenção', "Informe a sua data de nascimento para prosseguir.");
+      Alert.alert('Atenção', "Informe a sua data de nascimento para prosseguir.");
     }
     else if(currentStep.value === STEPS[5].value && user.password !== user.confirmPassword && action === "next"){
-      alert.error('Atenção', "As senhas não coincidem.");
+      Alert.alert('Atenção', "As senhas não coincidem.");
     }
     else if(currentStep.value === STEPS[5].value && user.password && user.confirmPassword && action === "next"){
-      await handleSubmit();
+      handleSubmit();
     }
     else {
       if(action === "next"){
@@ -223,6 +254,8 @@ const UserRegister = () => {
           bottom: 24,
           right: 24,
         }}
+        loading={loading.register}
+        disabled={loading.register}
         onPress={() => changeStep("next", currentStep.value)}
       />
     </View>

@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const END_POINT = "http://localhost:3000/";
+const END_POINT = "https://api-pc-app.herokuapp.com";
 
 //endpoints
 export const eps = {
-    login: "/api/common/login",
-    register: "/api/common/register"
+    login: `${END_POINT}/api/common/login`,
+    register: `${END_POINT}/api/common/register`
 }
 
 const api = axios.create({

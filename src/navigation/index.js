@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 export default function Routes() {
 
-  const loggedUser = true;
+  const loggedUser = false;
 
   if(loggedUser)
     return (
