@@ -7,7 +7,10 @@ export const eps = {
     login: `${END_POINT}/api/v1/usuario/login/`,
     register: `${END_POINT}/api/v1/usuario/create/`,
 
-    usuarioUpdate: `${END_POINT}/api/v1/usuario/update/`
+    usuarioUpdate: `${END_POINT}/api/v1/usuario/update/`,
+    usuarioGetAll: `${END_POINT}/api/v1/usuario/get_all/`,
+
+    produtoGetAll: `${END_POINT}/api/v1/produto/get_all/`
 }
 
 const api = axios.create({
