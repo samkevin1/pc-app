@@ -73,7 +73,7 @@ const Login = ({navigation}) => {
                       labelStyle={styles.labelStyle}
                       contentStyle={styles.contentStyle}
                       theme={theme}
-                      onPress={handleSubmit}
+                      onPress={() => handleSubmit}
                     />
                   </TouchableOpacity>
                   <View style={styles.orContainer}>
