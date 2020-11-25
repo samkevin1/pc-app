@@ -47,7 +47,7 @@ export function registerUser(user, callback) {
   }
 }
 
-export function submitLogin(values, callback) {
+export function submitLogin(callback) {
   
   return async (dispatch, getState) => {
     dispatch({
@@ -56,24 +56,24 @@ export function submitLogin(values, callback) {
     
 
     try {
-      console.log('action', eps.login)
-      const response = await api.post(eps.login, values);
-
-      console.log('response', response)
-
-      if(response.data.success) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: { token: response.data.token, user: response.data.user }
-        });
-        callback && callback(false, response.data.user);
-      } else {
-        dispatch({
-          type: LOGIN_FAILED,
-          payload: "Ocorreu um erro ao tentar se cadastrar"
-        });
-        callback && callback("Ocorreu um erro ao tentar se cadastrar", false);
-      }
+      const { email, senha } = getState().auth;
+      
+      api.post(eps.login, { email, senha }).then((r) => {
+        console.log(r.data.token)
+        if(r.data) {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: { token: r.data.token, user: r.data.user }
+          });
+          callback && callback(false, r.data.user);
+        } else {
+          dispatch({
+            type: LOGIN_FAILED,
+            payload: "Ocorreu um erro ao tentar se cadastrar"
+          });
+          callback && callback("Ocorreu um erro ao tentar se cadastrar", false);
+        }
+      });
 
     } catch(error) {
       dispatch({

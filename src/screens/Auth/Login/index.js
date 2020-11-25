@@ -7,10 +7,12 @@ import api, { eps } from '../../../services/api';
 import { handleLogin } from '../../../services/authJwt';
 import { Formik } from 'formik';
 import {
-  useDispatch
+  useDispatch,
+  useSelector
 } from 'react-redux';
 import{
-  submitLogin
+  submitLogin,
+  setValue
 } from '../../../store/actions/auth/index';
 
 const theme = {
@@ -26,76 +28,68 @@ const theme = {
 };
 
 const Login = ({navigation}) => {
+  const { email, senha } = useSelector((s) => s.auth);
   const dispatch = useDispatch();
 
-  const handleSubmit = (values) => {
-    dispatch(
-      submitLogin(values, (err, res) => {
-        if(err) {
-          Alert.alert(err);
-        }
-      })
-    );
-  }
+  const handleSubmit = () => dispatch(submitLogin((err, res) => {
+    if(err) {
+      Alert.alert("Atencao!", "Ocorreu um erro ao tentar entrar no aplicativo.");
+    }
+  }));
+ 
+  const handleChange = (id, value) => dispatch(
+    setValue({[ id]: value })
+  );
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      onSubmit={(values) => {
-        handleSubmit(values);
-      }}
-    >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
-          <View style={styles.container}>
-            <View style={{margin: 15}}>
-              <View style={{alignItems:'center', marginTop:100}}>
-                <Text style={styles.title}>Login</Text>
-                  <TextInput style={styles.input}
-                    placeholder='Email'
-                    underlineColor='#D3D3D3'
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    theme={theme}
-                     />
-                  <TextInput style={styles.input}
-                    placeholder='Senha'
-                    underlineColor='#D3D3D3'
-                    theme={theme}
-                    onChangeText={handleChange('password')}
-                    value={values.password}
-                    secureTextEntry={true}
-                  />
-                  <TouchableOpacity theme={theme} disabled={(values.email === '' || values.password === '')}>
-                    <Button mode='contained'
-                      children='Entrar'
-                      style={(values.email === '' || values.password === '') ? styles.disabledButton : styles.button}
-                      uppercase={false}
-                      labelStyle={styles.labelStyle}
-                      contentStyle={styles.contentStyle}
-                      theme={theme}
-                      onPress={() => handleSubmit}
-                    />
-                  </TouchableOpacity>
-                  <View style={styles.orContainer}>
-                    <View style={styles.leftHr}/>
-                    <Text style={styles.or}>Ou</Text>
-                    <View style={styles.rightHr}/>
-                  </View>
-                  <View style={{marginTop: 15, flexDirection: 'row'}}>
-                    <Text style={{fontWeight: '600'}}>Ainda não tem uma conta? </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                      <Text style={{fontWeight: 'bold', color: '#0645AD'}}>Crie uma aqui</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{flexDirection: 'row', marginTop: 15, alignItems: 'center'}}>
-                    <View style={styles.lastHr}/>
-                  </View>
-              </View>
+    <View style={styles.container}>
+      <View style={{margin: 15}}>
+        <View style={{alignItems:'center', marginTop:100}}>
+          <Text style={styles.title}>Login</Text>
+            <TextInput style={styles.input}
+              placeholder='Email'
+              underlineColor='#D3D3D3'
+              value={email}
+              onChangeText={v => handleChange('email', v)}
+              theme={theme}
+                />
+            <TextInput style={styles.input}
+              placeholder='Senha'
+              underlineColor='#D3D3D3'
+              theme={theme}
+              onChangeText={v => handleChange('senha', v)}
+              value={senha}
+              secureTextEntry={true}
+            />
+            <TouchableOpacity theme={theme} disabled={(email === '' || senha === '')}>
+              <Button mode='contained'
+                children='Entrar'
+                style={(email === '' || senha === '') ? styles.disabledButton : styles.button}
+                uppercase={false}
+                labelStyle={styles.labelStyle}
+                contentStyle={styles.contentStyle}
+                theme={theme}
+                onPress={handleSubmit}
+              />
+            </TouchableOpacity>
+            <View style={styles.orContainer}>
+              <View style={styles.leftHr}/>
+              <Text style={styles.or}>Ou</Text>
+              <View style={styles.rightHr}/>
             </View>
-          </View>
-        )
-      }
-    </Formik>
+            <View style={{marginTop: 15, flexDirection: 'row'}}>
+              <Text style={{fontWeight: '600'}}>Ainda não tem uma conta? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <Text style={{fontWeight: 'bold', color: '#0645AD'}}>Crie uma aqui</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection: 'row', marginTop: 15, alignItems: 'center'}}>
+              <View style={styles.lastHr}/>
+            </View>
+        </View>
+      </View>
+    </View>
+       
   );
 };
 

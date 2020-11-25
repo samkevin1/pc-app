@@ -8,7 +8,9 @@ import { axios } from 'axios';
 import { handleLogout, getUser } from '../../../services/authJwt';
 import styles from './styles';
 import DATA from '../data';
-import api, { eps } from '../../../services/api';
+
+import Header from "../../../components/Header/index";
+import GoBack from "../../../components/GoBack/index";
 
 const MyPurchases = ({ navigation }) => {
 
@@ -24,28 +26,21 @@ const MyPurchases = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Icon
-              name='ios-arrow-round-back'
-              type='ionicon'
-              iconStyle={{color: '#0645AD'}}
-              containerStyle={{marginTop: 3}}
+    <>
+      <Header page={"Meus pedidos"} />
+      <GoBack navigation={navigation} />
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={styles.destaque}>
+            <FlatList
+              data={DATA}
+              renderItem={verticalRenderItem}
+              keyExtractor={item => item.id}
             />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Meus Pedidos</Text>
-        </View>
-        <View style={styles.destaque}>
-          <FlatList
-            data={DATA}
-            renderItem={verticalRenderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
-      </ScrollView>
-    </View>
+          </View>
+        </ScrollView>
+      </View>
+    </>
   );
 }
 

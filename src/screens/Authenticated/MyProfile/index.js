@@ -7,23 +7,17 @@ import Text from '../../../components/Text/index';
 import Colors from '../../../constants/color';
 import { ActivityIndicator } from 'react-native-paper';
 
+import Header from "../../../components/Header/index";
+import GoBack from "../../../components/GoBack/index";
+
 const MyProfile =({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Header page={"Meu perfil"} />
+      <GoBack navigation={navigation} />
       <ScrollView style={{ margin: 15 }}>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Icon
-              name='ios-arrow-round-back'
-              type='ionicon'
-              iconStyle={{color: '#0645AD'}}
-              containerStyle={{marginTop: 3}}
-            />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Meu Perfil</Text>
-        </View>
-        <View style={{ marginTop: 15 }}>
+        <View>
           <View style={{ alignSelf: 'center' }}>
             <Icon
               name='ios-contact'

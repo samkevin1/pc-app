@@ -1,63 +1,33 @@
 import React from 'react';
-import {Text, View, FlatList, SafeAreaView, StatusBar, TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
+import {Text, View, FlatList, SafeAreaView, StatusBar, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import {Icon, Avatar, ListItem} from 'react-native-elements';
 import styles from './styles';
-import DATA from "../data";
+
+import Header from "../../../components/Header/index";
+import GoBack from "../../../components/GoBack/index";
+
+import { addToCart } from "../../../store/actions/cart/index";
+import { useDispatch } from "react-redux";
 
 const Details = ({ navigation, route }) => {
-  const { id } = route.params;
-  const product = DATA.filter(p => p.id === id)[0];
+  const { product } = route.params;
+  const dispatch = useDispatch();
+
   const price = parseInt(product.vista) + 500;
   const discount = Math.round((parseInt(product.prazo) - parseInt(product.vista)) / parseInt(product.prazo) * 100);
 
-  const addToCart = (data) => {
-    data = product
-    const itemCart = {
-      data: data,
-      quantity: 1,
-      price: data.prazo
-    }
-
-    AsyncStorage.getItem("cart").then((datacart)=>{
-
-      if(datacart !== null){
-        const cart  = JSON.parse(datacart);
-        cart.push(datacart);
-        AsyncStorage.setItem("cart", JSON.stringify(cart));
-        console.log(cart);
-      }else{
-        const cart = [];
-        cart.push(itemCart)
-        AsyncStorage.setItem("cart", JSON.stringify(cart))
-      }
-      alert("Adiciondo com sucesso!")
-    })
-      .catch((error)=>{
-        alert("err")
-      })
+  const handleAddToCart = (data) => {
+    dispatch(addToCart(data));
+    Alert.alert("Sucesso", "Produto adicionado ao carrinho com sucesso.");
   }
 
   return(
     <ScrollView>
-      <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={navigation.goBack}>
-          <Icon
-            name='ios-arrow-round-back'
-            type='ionicon'
-            iconStyle={{color: '#0645AD'}}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
-          <Icon
-            name='ios-cart'
-            type='ionicon'
-            iconStyle={{color: '#0645AD', marginRight: 20}}
-          />
-        </TouchableOpacity>
-      </View>
-      <Avatar source={{uri: product.img}} containerStyle={{ width: '100%', height: 250}}/>
+      <Header page={"Detalhes do produto"} />
+      <GoBack navigation={navigation} />
+      <Avatar source={{uri: product.imagem}} containerStyle={{ width: '100%', height: 250}}/>
       <View style={styles.modalTitle}>
-        <Text style={styles.title}>{product.title}, {product.processador}, {product.placaVideo}, {product.ram}</Text>
+        <Text style={styles.title}>{product.nome}, {product.processador}, {product.placaVideo}, {product.ram}</Text>
       </View>
       <View style={{ margin: 10 }}>
         <View style={styles.modal}>
@@ -81,7 +51,7 @@ const Details = ({ navigation, route }) => {
           </View>
         </View>
         <View style={styles.modal}>
-          <TouchableOpacity style={{margin: 10, alignSelf:'flex-start', flexDirection: 'row'}} onPress={() => addToCart(product)}>
+          <TouchableOpacity style={{margin: 10, alignSelf:'flex-start', flexDirection: 'row'}} onPress={() => handleAddToCart(product)}>
             <Icon
               name='ios-cart'
               type='ionicon'

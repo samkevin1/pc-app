@@ -4,6 +4,8 @@ let initialState = {
   loading: false,
   errors: {},
   user: null,
+  email: "",
+  senha: "",
   token: null
 }
 

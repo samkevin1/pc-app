@@ -6,13 +6,14 @@ import UserRegister from '../screens/Auth/Register/index';
 import HomePage from '../screens/Authenticated/HomePage/index';
 import BottomTabNavigator from './bottomTabNavigator';
 
+import { useSelector } from 'react-redux';
+
 const Stack = createStackNavigator();
 
 export default function Routes() {
+  const { token } = useSelector((s) => s.auth);
 
-  const loggedUser = false;
-
-  if(loggedUser)
+  if(token)
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
