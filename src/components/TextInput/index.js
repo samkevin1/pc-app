@@ -1,24 +1,22 @@
-import React, { ReactNode } from "react";
+import React from 'react';
 import {
   View,
   TextInput as TextInputRN,
-  TextInputProps,
-  TextStyle,
-  ViewStyle,
   Picker,
   Platform,
   ActivityIndicator,
-  TextProps,
-  GestureResponderEvent
 } from "react-native";
 
-import ModalSelector from "react-native-modal-selector";
+const ModalSelector = Platform.select({
+  ios: () => require('react-native-modal-selector'),
+  android: () => require('react-native-modal-selector'),
+  default: () => <div>Modal selector not implmented for web</div>
+})();
+
 import Text from '../Text/index';
 
 import {
-  TextInputMask,
-  TextInputMaskTypeProp,
-  TextInputMaskOptionProp,
+  TextInputMask
 } from "react-native-masked-text";
 
 import { Icon } from "react-native-elements";
