@@ -20,7 +20,7 @@ export function registerUser(user, callback) {
     });
 
     try {
-      const response = await api.post(eps.login, user);
+      const response = await api.post(eps.register, user);
       console.log('res', response)
 
       if(response.data.success) {

@@ -16,6 +16,7 @@ import {
   useDispatch,
   useSelector
 } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   registerUser
@@ -25,16 +26,16 @@ const UserRegister = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((s) => s.auth);
   const [currentStep, setCurrentStep]  = useState(STEPS.find((s) => s.value === 1));
+  const navigation = useNavigation();
 
   const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
+    nome: '',
+    sobrenome: '',
     email: '',
     cpf: '',
-    birthDate: '',
-    password: '',
-    confirmPassword: '',
-    role: "adc"
+    dataNascimento: '',
+    senha: '',
+    confirmPassword: ''
   });
 
   const handleSubmit = () => {
@@ -44,6 +45,8 @@ const UserRegister = () => {
         if(err) {
           Alert.alert("Atencao!", err);
         } else {
+          Alert.alert('Usuario criado com sucesso');
+          navigation.navigate('Login');
           console.log(res)
         }
       })
@@ -51,10 +54,10 @@ const UserRegister = () => {
   }
  
   const changeStep = async (action = "next", step) => {
-    if(currentStep.value === STEPS[0].value && !user.name && action === "next"){
+    if(currentStep.value === STEPS[0].value && !user.nome && action === "next"){
       Alert.alert('Atenção', "Informe o seu nome para prosseguir.");
     }
-    else if(currentStep.value === STEPS[1].value && !user.lastName && action === "next"){
+    else if(currentStep.value === STEPS[1].value && !user.sobrenome && action === "next"){
       Alert.alert('Atenção', "Informe o seu sobrenome para prosseguir.");
     }
     else if(currentStep.value === STEPS[2].value && !user.email && action === "next"){
@@ -63,13 +66,13 @@ const UserRegister = () => {
     else if(currentStep.value === STEPS[3].value && user.cpf < 1 && action === "next"){
       Alert.alert('Atenção', "Informe o seu CPF.");
     }
-    else if(currentStep.value === STEPS[4].value && !user.birthDate && action === "next"){
+    else if(currentStep.value === STEPS[4].value && !user.dataNascimento && action === "next"){
       Alert.alert('Atenção', "Informe a sua data de nascimento para prosseguir.");
     }
-    else if(currentStep.value === STEPS[5].value && user.password !== user.confirmPassword && action === "next"){
+    else if(currentStep.value === STEPS[5].value && user.senha !== user.confirmPassword && action === "next"){
       Alert.alert('Atenção', "As senhas não coincidem.");
     }
-    else if(currentStep.value === STEPS[5].value && user.password && user.confirmPassword && action === "next"){
+    else if(currentStep.value === STEPS[5].value && user.senha && user.confirmPassword && action === "next"){
       handleSubmit();
     }
     else {
@@ -89,6 +92,11 @@ const UserRegister = () => {
       [prop]: value
     });
   }
+
+  const RegisterUserHead = () => (
+    <View style={{ flexDirection: 'row' }}>
+      <Text style={[styles.text, {fontWeight: '700', color:  "#0645AD"}]}>{user.nome} {user.sobrenome}, </Text>
+    </View>);
 
   return(
     <View style={styles.container}>
@@ -113,8 +121,8 @@ const UserRegister = () => {
                          type="text"
                          placeholderTextColor="#757575"
                          style={styles.stepInput}
-                         value={user.name}
-                         onChangeText={(value) => handleChangeUser("name", value)}
+                         value={user.nome}
+                         onChangeText={(value) => handleChangeUser("nome", value)}
               />
             </View>
           )}
@@ -122,7 +130,7 @@ const UserRegister = () => {
             <View style={{ marginTop: 35 }}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={[styles.text, {fontWeight: '700', color:  "#0645AD"}]} type="text">
-                  {user.name},
+                  {user.nome},
                 </Text>
                 <Text style={styles.text}>
                   {' '}qual é seu sobrenome?
@@ -132,17 +140,15 @@ const UserRegister = () => {
                          type="text"
                          id="lastName"
                          style={styles.stepInput}
-                         value={user.lastName}
+                         value={user.sobrenome}
                          placeholderTextColor="#757575"
-                         onChangeText={(value) => handleChangeUser("lastName", value)}
+                         onChangeText={(value) => handleChangeUser("sobrenome", value)}
               />
             </View>
           )}
           {currentStep.value === STEPS[2].value && (
             <View style={{ marginTop: 35 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.text, {fontWeight: '700', color:  "#0645AD"}]}>{user.name} {user.lastName}, </Text>
-              </View>
+              <RegisterUserHead />
               <Text style={styles.text} type="text">
                 Poderia nos informar seu e-mail?
               </Text>
@@ -159,9 +165,7 @@ const UserRegister = () => {
           )}
           {currentStep.value === STEPS[3].value && (
             <View style={{ marginTop: 35 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.text, {fontWeight: '700', color:  "#0645AD"}]}>{user.name} {user.lastName}, </Text>
-              </View>
+              <RegisterUserHead />
               <Text style={styles.text} type="text">
                 Poderia nos informar seu CPF?
               </Text>
@@ -181,7 +185,7 @@ const UserRegister = () => {
           {currentStep.value === STEPS[4].value && (
             <View style={{ marginTop: 35 }}>
               <Text style={styles.text} type="text">
-                Qual é sua data de nascimento, {user.name}?
+                Qual é sua data de nascimento, {user.nome}?
               </Text>
               <TextInput
                 placeholder="Digite aqui..."
@@ -194,8 +198,8 @@ const UserRegister = () => {
                 options={{
                   format: 'DD/MM/YYYY'
                 }}
-                value={user.birthDate}
-                onChangeText={(value) => handleChangeUser("birthDate", value)}
+                value={user.dataNascimento}
+                onChangeText={(value) => handleChangeUser("dataNascimento", value)}
               />
             </View>
           )}
@@ -211,8 +215,8 @@ const UserRegister = () => {
                 id="password"
                 placeholderTextColor="#757575"
                 style={styles.stepInput}
-                value={user.password}
-                onChangeText={(value) => handleChangeUser("password", value)}
+                value={user.senha}
+                onChangeText={(value) => handleChangeUser("senha", value)}
               />
               <TextInput
                 placeholder="Confirmar senha..."
