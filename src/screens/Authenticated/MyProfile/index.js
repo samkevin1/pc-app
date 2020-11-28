@@ -1,20 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View, TouchableOpacity, Image, Animated, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { Button, Avatar, Icon } from 'react-native-elements';
-import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 import styles from './styles';
 import Text from '../../../components/Text/index';
-import Colors from '../../../constants/color';
-import { ActivityIndicator } from 'react-native-paper';
-
 import Header from "../../../components/Header/index";
 import GoBack from "../../../components/GoBack/index";
+import { UseLangContext } from '../../../contexts/LangContext';
 
 const MyProfile =({ navigation }) => {
+  const { texts } = UseLangContext();
 
   return (
     <View style={styles.container}>
-      <Header page={"Meu perfil"} />
+      <Header page={texts.meu_perfil} />
       <GoBack navigation={navigation} />
       <ScrollView style={{ margin: 15 }}>
         <View>
@@ -26,11 +24,11 @@ const MyProfile =({ navigation }) => {
             />
           </View>
           <Text style={styles.title}>
-            Nome do usuário
+            {texts.nome_usuario}
           </Text>
           <TouchableOpacity style={{ marginTop: 15 }} onPress={() => navigation.navigate("EditPage")}>
             <View style={styles.button}>
-              <Text style={styles.label}>EDITAR</Text>
+              <Text style={styles.label}>{texts.editar}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -42,9 +40,9 @@ const MyProfile =({ navigation }) => {
                 type='ionicon'
                 iconStyle={{color: '#0645AD'}}
               />
-              <Text style={{marginLeft:10, marginTop: 2, fontWeight: 'bold', color: 'black'}}>Meus pedidos</Text>
+              <Text style={{marginLeft:10, marginTop: 2, fontWeight: 'bold', color: 'black'}}>{texts.meus_pedidos}</Text>
             </View>
-            <Text style={{ marginBottom: 10, marginLeft:43 ,alignSelf:'flex-start', color: '#999999', fontSize:12 }}>Veja todos seus pedidos</Text>
+            <Text style={{ marginBottom: 10, marginLeft:43 ,alignSelf:'flex-start', color: '#999999', fontSize:12 }}>{texts.veja_pedidos}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.modal}>
@@ -55,9 +53,9 @@ const MyProfile =({ navigation }) => {
                 type='ionicon'
                 iconStyle={{color: '#0645AD'}}
               />
-              <Text style={{marginLeft:10, marginTop: 2, fontWeight: 'bold', color: 'black'}}>Dados pessoais</Text>
+              <Text style={{marginLeft:10, marginTop: 2, fontWeight: 'bold', color: 'black'}}>{texts.dados_pessoais}</Text>
             </View>
-            <Text style={{ marginBottom: 10, marginLeft:38 ,alignSelf:'flex-start', color: '#999999', fontSize:12 }}>Altere senha, email e dados pessoais</Text>
+            <Text style={{ marginBottom: 10, marginLeft:38 ,alignSelf:'flex-start', color: '#999999', fontSize:12 }}>{texts.alterar_dados}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

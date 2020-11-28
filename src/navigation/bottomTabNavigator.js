@@ -5,10 +5,13 @@ import Colors from '../constants/color';
 import { Cart, Details, EditPassword, EditPage, HomePage, MyProfile, EditData, MyPurchases } from '../screens/index';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { UseLangContext } from '../contexts/LangContext';
 
 const BottomTab = createMaterialBottomTabNavigator();
 
 export default function BottomTabNavigator() {
+  const { texts } = UseLangContext();
+
   return (
     <BottomTab.Navigator
       initialRouteName="Feed"
@@ -20,15 +23,15 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarLabel: 'Início',
+          tabBarLabel: texts.inicio,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="Meu Perfil"
+        name={texts.meu_perfil}
         component={MyProfileNavigator}
         options={{
-            tabBarLabel: 'Meu Perfil',
+            tabBarLabel: texts.meu_perfil,
             tabBarIcon: ({ color }) => <TabBarIcon name="account" color={color} />,
         }}
       />
@@ -44,6 +47,7 @@ function TabBarIcon({ name, color }) {
 const FeedStack = createStackNavigator()
 
 function HomeNavigator() {
+  const { texts } = UseLangContext();
   return (
     <FeedStack.Navigator screenOptions={{headerShown: false}}>
       <FeedStack.Screen
@@ -51,7 +55,7 @@ function HomeNavigator() {
         component={HomePage}
         options={
           {
-            headerTitle: 'Home',
+            headerTitle: texts.inicio,
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
@@ -62,7 +66,7 @@ function HomeNavigator() {
         component={Details}
         options={
           {
-            headerTitle: 'Details',
+            headerTitle: texts.detalhes,
             headerStyle: { backgroundColor: '#ccc' },
           }
         }
@@ -72,7 +76,7 @@ function HomeNavigator() {
         component={Cart}
         options={
           {
-            headerTitle: 'Cart',
+            headerTitle: texts.carrinho,
             headerStyle: { backgroundColor: '#ccc' },
           }
         }
@@ -82,6 +86,7 @@ function HomeNavigator() {
 }
 
 function MyProfileNavigator() {
+  const { texts } = UseLangContext();
   return (
     <FeedStack.Navigator screenOptions={{headerShown: false}}>
       <FeedStack.Screen
@@ -89,7 +94,7 @@ function MyProfileNavigator() {
         component={MyProfile}
         options={
           {
-            headerTitle: 'EditPage',
+            headerTitle: texts.meu_perfil,
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
@@ -100,7 +105,7 @@ function MyProfileNavigator() {
         component={EditPage}
         options={
           {
-            headerTitle: 'MyProfile',
+            headerTitle: texts.edit_page,
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
@@ -111,7 +116,7 @@ function MyProfileNavigator() {
         component={EditPassword}
         options={
           {
-            headerTitle: 'EditPassword',
+            headerTitle: texts.edit_pass,
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
@@ -122,7 +127,7 @@ function MyProfileNavigator() {
         component={EditData}
         options={
           {
-            headerTitle: 'EditData',
+            headerTitle: texts.edit_data,
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }
@@ -133,7 +138,7 @@ function MyProfileNavigator() {
         component={MyPurchases}
         options={
           {
-            headerTitle: 'MyPurchases',
+            headerTitle: texts.my_purchases,
             headerStyle: { backgroundColor: '#FFFF' },
             headerTitleStyle: { fontSize: 20, color: "#414141" }
           }

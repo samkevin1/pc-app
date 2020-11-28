@@ -1,12 +1,14 @@
 import React from "react";
-import { View, TouchableOpacity, ScrollView } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import styles from './styles';
 import Text from '../../../components/Text/index';
-import { Button, Avatar, Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import { TextInput, DefaultTheme } from 'react-native-paper';
 import { Formik } from 'formik';
+import { UseLangContext } from '../../../contexts/LangContext';
 
 const EditPassword =({ navigation }) => {
+  const { texts } = UseLangContext();
 
   const theme = {
     ...DefaultTheme,
@@ -37,17 +39,17 @@ const EditPassword =({ navigation }) => {
                   containerStyle={{marginTop: 3}}
                 />
               </TouchableOpacity>
-              <Text style={styles.headerText}>Editar Senha</Text>
+              <Text style={styles.headerText}>{texts.edit_pass}</Text>
             </View>
             <View style={{marginTop: 10}} />
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Senha atual</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.acc_pass}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Senha atual'
+                  placeholder={texts.acc_pass}
                   underlineColor='#D3D3D3'
                   value={values.currentPassword}
                   onChangeText={handleChange('currentPassword')}
@@ -59,11 +61,11 @@ const EditPassword =({ navigation }) => {
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Nova senha</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.new_pass}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Nova senha'
+                  placeholder={texts.new_pass}
                   underlineColor='#D3D3D3'
                   value={values.newPassword}
                   onChangeText={handleChange('newPassword')}
@@ -75,11 +77,11 @@ const EditPassword =({ navigation }) => {
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Confirmar senha</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.confirma_senha}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Confirmar senha'
+                  placeholder={texts.confirma_senha}
                   underlineColor='#D3D3D3'
                   value={values.confirmPassword}
                   onChangeText={handleChange('confirmPassword')}

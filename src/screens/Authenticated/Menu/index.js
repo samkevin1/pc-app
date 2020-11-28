@@ -1,7 +1,6 @@
 import React from "react";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Image, StyleSheet, View } from "react-native";
-import { useDispatch } from "react-redux";
+import {  StyleSheet, View } from "react-native";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import {
   FontAwesome,
@@ -13,9 +12,11 @@ import {
 } from "@expo/vector-icons";
 
 import { RFValue } from "../../../helpers/fontSize";
+import { UseLangContext } from "../../../contexts/LangContext";
 
 const Menu = (props) => {
   const navigation = useNavigation();
+  const { texts } = UseLangContext();
 
   const closeMenu = () => navigation.dispatch(DrawerActions.closeDrawer());
 
@@ -51,7 +52,7 @@ const Menu = (props) => {
                   ),
                 },
                 {
-                  label: "Estabelecimentos por perto",
+                  label: texts.estabelecimento_perto,
                   route: "EstablishmentNearby",
                   subRoute: "EstablishmentNearby",
                   icon: () => (

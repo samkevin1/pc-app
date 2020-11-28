@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import {Text, View, FlatList, SafeAreaView, StatusBar, TouchableOpacity, ScrollView} from 'react-native';
-import Constants from 'expo-constants';
-import { ListItem, Icon, Avatar } from 'react-native-elements';
-import { Card } from 'react-native-paper';
-import { axios } from 'axios';
-
-import { handleLogout, getUser } from '../../../services/authJwt';
+import React, { useCallback, useEffect } from 'react';
+import {Text, View, FlatList,TouchableOpacity, ScrollView} from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
 import styles from './styles';
-
 import Header from "../../../components/Header/index";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../../store/actions/product/index';
+import {UseLangContext} from "../../../contexts/LangContext";
 
 const HomePage = ({ navigation }) => {
   const dispatch = useDispatch();
-
+  const { lang, texts } = UseLangContext();
   const { products } = useSelector((s) => s.product);
 
   useEffect(() => {
@@ -30,8 +24,8 @@ const HomePage = ({ navigation }) => {
         <Avatar source={{uri: item.imagem}} />
         <ListItem.Content>
           <ListItem.Title style={styles.text}>{item.nome}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
-          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 á vista</ListItem.Subtitle>
-          <ListItem.Subtitle>R$ {item.prazo},00 em até 12x</ListItem.Subtitle>
+          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 {texts.a_vista}</ListItem.Subtitle>
+          <ListItem.Subtitle>R$ {item.prazo},00 {texts.em_ate} 12x</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
@@ -46,20 +40,28 @@ const HomePage = ({ navigation }) => {
         <Avatar source={{uri: item.imagem}} />
         <ListItem.Content>
           <ListItem.Title style={styles.text}>{item.nome}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
-          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 á vista</ListItem.Subtitle>
-          <ListItem.Subtitle>R$ {item.prazo},00 em até 12x</ListItem.Subtitle>
+          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 {texts.a_vista}</ListItem.Subtitle>
+          <ListItem.Subtitle>R$ {item.prazo},00 {texts.em_ate} 12x</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
     </TouchableOpacity>
   );
 
+  const ProductVerticalList = useCallback(() => (
+    <FlatList
+      data={products}
+      renderItem={verticalRenderItem}
+      keyExtractor={item => item.id}
+    />
+  ), [lang]);
+
   return (
     <ScrollView>
-      <Header page={"Home"}/>
+      <Header page={texts.inicio}/>
       <View style={styles.container}>
         <View style={styles.oferta}>
-          <Text style={{fontSize: 15, fontWeight: '700', marginBottom: 10}}>Ofertas</Text>
+          <Text style={{fontSize: 15, fontWeight: '700', marginBottom: 10}}>{texts.ofertas}</Text>
           <FlatList
             horizontal
             data={products.filter(p => p.oferta == true)}
@@ -80,12 +82,8 @@ const HomePage = ({ navigation }) => {
           />
         </View>
         <View style={styles.destaque}>
-          <Text style={{fontSize: 15, fontWeight: '700', marginBottom: 10}}>Produtos em destaque</Text>
-          <FlatList
-            data={products}
-            renderItem={verticalRenderItem}
-            keyExtractor={item => item.id}
-          />
+          <Text style={{fontSize: 15, fontWeight: '700', marginBottom: 10}}>{texts.produto_destaque}</Text>
+          <ProductVerticalList />
         </View>
       </View>
     </ScrollView>

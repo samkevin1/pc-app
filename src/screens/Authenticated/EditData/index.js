@@ -1,12 +1,14 @@
 import React from "react";
-import { View, TouchableOpacity, ScrollView } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import styles from './styles';
 import Text from '../../../components/Text/index';
-import { Button, Avatar, Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import { TextInput, DefaultTheme } from 'react-native-paper';
 import { Formik } from 'formik';
+import { UseLangContext } from '../../../contexts/LangContext';
 
 const EditData =({ navigation }) => {
+  const { texts } = UseLangContext();
 
   const theme = {
     ...DefaultTheme,
@@ -37,17 +39,17 @@ const EditData =({ navigation }) => {
                   containerStyle={{marginTop: 3}}
                 />
               </TouchableOpacity>
-              <Text style={styles.headerText}>Editar Dados</Text>
+              <Text style={styles.headerText}>{texts.edit_data}</Text>
             </View>
             <View style={{marginTop: 10}} />
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Novo nome</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.novo_nome}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Novo nome'
+                  placeholder={texts.novo_nome}
                   underlineColor='#D3D3D3'
                   value={values.nome}
                   onChangeText={handleChange('nome')}
@@ -58,11 +60,11 @@ const EditData =({ navigation }) => {
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Novo sobrenome</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.novo_sobrenome}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Novo sobrenome'
+                  placeholder={texts.novo_sobrenome}
                   underlineColor='#D3D3D3'
                   value={values.sobrenome}
                   onChangeText={handleChange('sobrenome')}
@@ -73,11 +75,11 @@ const EditData =({ navigation }) => {
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Novo CPF</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.novo_cpf}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Novo CPF'
+                  placeholder={texts.novo_cpf}
                   underlineColor='#D3D3D3'
                   value={values.cpf}
                   onChangeText={handleChange('cpf')}
@@ -88,11 +90,11 @@ const EditData =({ navigation }) => {
             <View style={styles.modal}>
               <View>
                 <View style={{  marginLeft:10, marginTop:10, alignSelf:'flex-start', flexDirection: 'row' }}>
-                  <Text style={{marginLeft:5, color: '#999999'}}>Novo gênero</Text>
+                  <Text style={{marginLeft:5, color: '#999999'}}>{texts.novo_genero}</Text>
                 </View>
                 <TextInput 
                   style={styles.input}
-                  placeholder='Novo gênero'
+                  placeholder={texts.novo_genero}
                   underlineColor='#D3D3D3'
                   value={values.role}
                   onChangeText={handleChange('role')}

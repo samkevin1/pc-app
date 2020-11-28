@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
 import {
-   ScrollView, 
    Text, 
-   View, 
-   TextInput as TextInputRN, 
-   TouchableOpacity,
+   View,
    Alert
 } from 'react-native';
 import { STEPS } from './formSteps';
 import TextInput from '../../../components/TextInput/index';
 import SimpleStep from '../../../components/SimpleStep/index';
-import { Button, Icon } from "react-native-elements";
+import { Button } from "react-native-elements";
 import styles from './styles';
 import {
   useDispatch,
   useSelector
 } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-
 import {
   registerUser
 } from "../../../store/actions/auth/index";
+import { UseLangContext } from "../../../contexts/LangContext";
 
 const UserRegister = () => {
   const dispatch = useDispatch();
+  const { texts } = UseLangContext();
   const { loading } = useSelector((s) => s.auth);
   const [currentStep, setCurrentStep]  = useState(STEPS.find((s) => s.value === 1));
   const navigation = useNavigation();
@@ -43,9 +41,9 @@ const UserRegister = () => {
     dispatch(
       registerUser(user, (err, res) => {
         if(err) {
-          Alert.alert("Atencao!", err);
+          Alert.alert(texts.atencao, err);
         } else {
-          Alert.alert('Usuario criado com sucesso');
+          Alert.alert(texts.usuario_criado);
           navigation.navigate('Login');
           console.log(res)
         }
@@ -55,22 +53,22 @@ const UserRegister = () => {
  
   const changeStep = async (action = "next", step) => {
     if(currentStep.value === STEPS[0].value && !user.nome && action === "next"){
-      Alert.alert('Atenção', "Informe o seu nome para prosseguir.");
+      Alert.alert(texts.atencao, texts.inf_nome_warn);
     }
     else if(currentStep.value === STEPS[1].value && !user.sobrenome && action === "next"){
-      Alert.alert('Atenção', "Informe o seu sobrenome para prosseguir.");
+      Alert.alert(texts.atencao, texts.inf_sobrenome_warn);
     }
     else if(currentStep.value === STEPS[2].value && !user.email && action === "next"){
-      Alert.alert('Atenção', "Informe o seu e-mail!");
+      Alert.alert(texts.atencao, texts.inf_email_warn);
     }
     else if(currentStep.value === STEPS[3].value && user.cpf < 1 && action === "next"){
-      Alert.alert('Atenção', "Informe o seu CPF.");
+      Alert.alert(texts.atencao, texts.inf_cpf_warn);
     }
     else if(currentStep.value === STEPS[4].value && !user.dataNascimento && action === "next"){
-      Alert.alert('Atenção', "Informe a sua data de nascimento para prosseguir.");
+      Alert.alert(texts.atencao, texts.inf_data_nasc_warn);
     }
     else if(currentStep.value === STEPS[5].value && user.senha !== user.confirmPassword && action === "next"){
-      Alert.alert('Atenção', "As senhas não coincidem.");
+      Alert.alert(texts.atencao, texts.senha_n_coincidem);
     }
     else if(currentStep.value === STEPS[5].value && user.senha && user.confirmPassword && action === "next"){
       handleSubmit();
@@ -110,13 +108,13 @@ const UserRegister = () => {
           {currentStep.value === STEPS[0].value && (
             <View style={{ marginTop: 35 }}>
               <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.text}>Seja bem vindo a</Text>
-                <Text style={[styles.text, {fontWeight: '700', color:  "#0645AD"}]}>{' '}Loja de PC!</Text>
+                <Text style={styles.text}>{texts.welcome}</Text>
+                <Text style={[styles.text, {fontWeight: '700', color:  "#0645AD"}]}>{' '}{texts.loja_pc}</Text>
               </View>
               <Text style={styles.text}  type="text">
-                Nos informe seu nome para continuarmos!
+                {texts.inf_nome}
               </Text>
-              <TextInput placeholder="Digite aqui..."
+              <TextInput placeholder={texts.digite_aqui}
                          id="name"
                          type="text"
                          placeholderTextColor="#757575"
@@ -133,10 +131,10 @@ const UserRegister = () => {
                   {user.nome},
                 </Text>
                 <Text style={styles.text}>
-                  {' '}qual é seu sobrenome?
+                  {' '}{texts.inf_sobrenome}
                 </Text>
               </View>
-              <TextInput placeholder="Digite aqui..."
+              <TextInput placeholder={texts.digite_aqui}
                          type="text"
                          id="lastName"
                          style={styles.stepInput}
@@ -150,7 +148,7 @@ const UserRegister = () => {
             <View style={{ marginTop: 35 }}>
               <RegisterUserHead />
               <Text style={styles.text} type="text">
-                Poderia nos informar seu e-mail?
+                {texts.inf_email}
               </Text>
               <TextInput
                 name="email"
@@ -167,14 +165,14 @@ const UserRegister = () => {
             <View style={{ marginTop: 35 }}>
               <RegisterUserHead />
               <Text style={styles.text} type="text">
-                Poderia nos informar seu CPF?
+                {texts.inf_cpf}
               </Text>
               <Text style={styles.textBold} type="text">
-                (Somente números)
+                ({texts.somente_num})
               </Text>
               <TextInput
                 name="cpf"
-                placeholder="Digite aqui..."
+                placeholder={texts.digite_aqui}
                 style={styles.stepInput}
                 placeholderTextColor="#757575"
                 value={user.cpf}
@@ -185,10 +183,10 @@ const UserRegister = () => {
           {currentStep.value === STEPS[4].value && (
             <View style={{ marginTop: 35 }}>
               <Text style={styles.text} type="text">
-                Qual é sua data de nascimento, {user.nome}?
+                {texts.inf_data_nasc} {user.nome}?
               </Text>
               <TextInput
-                placeholder="Digite aqui..."
+                placeholder={texts.digite_aqui}
                 type={'datetime'}
                 id="birthDate"
                 keyboardType="date"
@@ -206,10 +204,10 @@ const UserRegister = () => {
           {currentStep.value === STEPS[5].value && (
             <View style={{ marginTop: 35 }}>
               <Text style={styles.text}>
-                Escolha uma senha seguindo as regras abaixo!
+                {texts.inf_senha}
               </Text>
               <TextInput
-                placeholder="Digite aqui..."
+                placeholder={texts.digite_aqui}
                 secureTextEntry
                 password={true}
                 id="password"
@@ -219,7 +217,7 @@ const UserRegister = () => {
                 onChangeText={(value) => handleChangeUser("senha", value)}
               />
               <TextInput
-                placeholder="Confirmar senha..."
+                placeholder={texts.confirma_senha}
                 id="confirmPassword"
                 secureTextEntry
                 style={styles.stepInput}
@@ -228,13 +226,13 @@ const UserRegister = () => {
                 onChangeText={(value) => handleChangeUser("confirmPassword", value)}
               />
               <Text style={styles.specifications}>
-                * Uma letra
+                * {texts.uma_letra}
               </Text>
               <Text style={styles.specifications}>
-                * Um número
+                * {texts.um_numero}
               </Text>
               <Text style={styles.specifications}>
-                * Entre 8 e 60 caractéres
+                * {texts.entre_oito_sessenta}
               </Text>
             </View>
           )}

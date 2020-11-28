@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { FlatList, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
-import { ListItem, Icon, Avatar } from 'react-native-elements';
-
+import { ListItem, Avatar } from 'react-native-elements';
 import {
-  useDispatch,
   useSelector
 } from 'react-redux';
-
 import Header from "../../../components/Header/index";
 import GoBack from "../../../components/GoBack/index";
+import {UseLangContext} from "../../../contexts/LangContext";
 
 const Cart = ({ navigation }) => {
-  const dispatch = useDispatch();
-
+  const { texts } = UseLangContext();
   const { cartProducts } = useSelector((s) => s.cart);
 
   const renderProduct = ({ item }) => (
@@ -25,8 +22,8 @@ const Cart = ({ navigation }) => {
         <Avatar source={{uri: item.imagem}} />
         <ListItem.Content>
           <ListItem.Title style={styles.text}>{item.nome}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
-          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 á vista</ListItem.Subtitle>
-          <ListItem.Subtitle>R$ {item.prazo},00 em até 12x</ListItem.Subtitle>
+          <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 {texts.a_vista}</ListItem.Subtitle>
+          <ListItem.Subtitle>R$ {item.prazo},00 {texts.em_ate} 12x</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
@@ -35,7 +32,7 @@ const Cart = ({ navigation }) => {
 
   return (
     <>
-      <Header page={'Seu carrinho'} />
+      <Header page={texts.seu_carrinho} />
       <GoBack navigation={navigation} />
       <ScrollView style={styles.container}>
         <FlatList
