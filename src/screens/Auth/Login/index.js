@@ -42,7 +42,7 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <LanguageSelect />
+      <LanguageSelect hasHeader={false} />
       <View style={{margin: 15}}>
         <View style={{alignItems:'center', marginTop:100}}>
           <Text style={styles.title}>Login</Text>
