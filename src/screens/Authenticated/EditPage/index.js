@@ -3,6 +3,7 @@ import { View, TouchableOpacity, ScrollView } from "react-native";
 import styles from './styles';
 import Text from '../../../components/Text/index';
 import { Icon } from 'react-native-elements'
+import { UseLangContext } from '../../../contexts/LangContext';
 
 const EditPage =({ navigation }) => {
   const { texts } = UseLangContext();
