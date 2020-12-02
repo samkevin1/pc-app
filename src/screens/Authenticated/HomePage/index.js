@@ -16,6 +16,8 @@ const HomePage = ({ navigation }) => {
     dispatch(getAllProducts());
   }, []);
 
+  //console.log('p', products)
+
   const verticalRenderItem = ({ item }) => (
     <TouchableOpacity>
       <ListItem bottomDivider

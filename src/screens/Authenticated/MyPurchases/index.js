@@ -7,14 +7,19 @@ import Header from "../../../components/Header/index";
 import GoBack from "../../../components/GoBack/index";
 import { UseLangContext } from '../../../contexts/LangContext';
 
+import {
+  useSelector
+} from 'react-redux';
+
 const MyPurchases = ({ navigation }) => {
   const { texts } = UseLangContext();
-
+  const { products } = useSelector((s) => s.product);
+  
   const verticalRenderItem = ({ item }) => (
     <ListItem bottomDivider>
-      <Avatar source={{uri: item.img}} />
+      <Avatar source={{uri: item.imagem}} />
       <ListItem.Content>
-        <ListItem.Title style={styles.text}>{item.title}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
+        <ListItem.Title style={styles.text}>{item.nome}, {item.processador}, {item.placaVideo}, {item.ram}...</ListItem.Title>
         <ListItem.Subtitle style={styles.aVista}>R$ {item.vista},00 {texts.a_vista}</ListItem.Subtitle>
         <ListItem.Subtitle>R$ {item.prazo},00 {texts.em_ate} 12x</ListItem.Subtitle>
       </ListItem.Content>
@@ -29,7 +34,7 @@ const MyPurchases = ({ navigation }) => {
         <ScrollView>
           <View style={styles.destaque}>
             <FlatList
-              data={DATA}
+              data={products.filter(p => p.oferta == true)}
               renderItem={verticalRenderItem}
               keyExtractor={item => item.id}
             />

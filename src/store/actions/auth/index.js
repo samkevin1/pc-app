@@ -57,25 +57,23 @@ export function submitLogin(callback) {
     dispatch({
       type: LOGIN
     });
-    
-
+  
     try {
       const { email, senha } = getState().auth;
       
       api.post(eps.login, { email, senha }).then((r) => {
-        console.log(r)
         if(r.data) {
           dispatch({
             type: LOGIN_SUCCESS,
-            payload: r.data
+            payload: { user: r.data.data, token: r.data.token }
           });
-          callback && callback(false, r.data.user);
+          return callback && callback(false, r.data.data);
         } else {
           dispatch({
             type: LOGIN_FAILED,
             payload: "Ocorreu um erro ao tentar se cadastrar"
           });
-          callback && callback("Ocorreu um erro ao tentar se cadastrar", false);
+          return callback && callback("Ocorreu um erro ao tentar se cadastrar", false);
         }
       });
 
@@ -89,24 +87,33 @@ export function submitLogin(callback) {
   }
 }
 
-export function updateUser(callback) {
+export function updateUser(newUser, callback) {
   return async (dispatch, getState) => {
     dispatch({
       type: UPDATE_USER
     });
 
     try {
-      const { user } = getState().auth
-      console.log(user)
-      const response = await api.patch(eps.usuarioUpdate, user);
-      console.log('res', response)
+      const { user } = getState().auth;
+
+      api.patch(`${eps.usuarioUpdate}${user.id}`, newUser).then((r) => {
+        if(r.data) {
+          dispatch({
+            type: UPDATE_USER_SUCCESS,
+            payload: r.data.data
+          });
+          callback && callback(false, r.data.data);
+        }
+      }).catch((err) => console.log('err', err));
+
+      console.log('resp', response)
 
       if(response.data.success) {
-        dispatch({
-          type: UPDATE_USER_SUCCESS,
-          payload: response.data.user
-        });
-        callback && callback(false, response.data);
+        // dispatch({
+        //   type: UPDATE_USER_SUCCESS,
+        //   payload: response.data.user
+        // });
+        // callback && callback(false, response.data);
       }else{
         dispatch({
           type: UPDATE_USER_ERROR,

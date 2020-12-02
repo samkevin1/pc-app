@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 0.2,
     borderBottomWidth: 0,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   input: {
     alignSelf: 'center',

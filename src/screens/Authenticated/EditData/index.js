@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Alert } from "react-native";
 import styles from './styles';
 import Text from '../../../components/Text/index';
@@ -23,25 +23,30 @@ const EditData =({ navigation }) => {
     ...DefaultTheme,
     roundness: 3,
     colors: {
-        ...DefaultTheme.colors,
-        primary: '#696969',
-        accent: 'white',
-        disabled: 'white',
-        text: '#676C6B'
+      ...DefaultTheme.colors,
+      primary: '#696969',
+      accent: 'white',
+      disabled: 'white',
+      text: '#676C6B'
     },
   };
 
   const [newUser, setNewUser] = useState(user);
 
-  const handleSubmit = () => dispatch(updateUser((err, res) => {
+  useEffect(() => {
+    setNewUser(user)
+  }, [user]);
+
+  const handleSubmit = () => dispatch(updateUser(newUser, (err, res) => {
     if(err) {
       Alert.alert(texts.atencao, "Erro ao editar dados do usuário");
+    } else {
+      Alert.alert(texts.atencao, "Perfil alterado com sucesso.");
     }
   }));
  
   const handleChangeUser = (id, value) => setNewUser({ ...newUser, [id]: value });
   
-
   return (
     <View style={styles.container}>
       <View style={{ margin: 15 }}>
@@ -66,7 +71,7 @@ const EditData =({ navigation }) => {
               style={styles.input}
               placeholder={texts.novo_nome}
               underlineColor='#D3D3D3'
-              value={newUser.nome}
+              value={newUser?.nome}
               onChangeText={v => handleChangeUser('nome', v)}
               theme={theme}
             />
@@ -81,7 +86,7 @@ const EditData =({ navigation }) => {
               style={styles.input}
               placeholder={texts.novo_sobrenome}
               underlineColor='#D3D3D3'
-              value={newUser.sobrenome}
+              value={newUser?.sobrenome}
               onChangeText={v => handleChangeUser('sobrenome', v)}
               theme={theme}
             />
@@ -96,15 +101,15 @@ const EditData =({ navigation }) => {
               style={styles.input}
               placeholder={texts.novo_cpf}
               underlineColor='#D3D3D3'
-              value={newUser.cpf}
+              value={newUser?.cpf}
               onChangeText={v => handleChangeUser('cpf', v)}
               theme={theme}
             />
           </View>
         </View>
         <TouchableOpacity 
-          style={{alignSelf: 'flex-end', marginTop:390}} 
-          onPress={handleSubmit(navigation.navigate("MyProfile"))}
+          style={{alignSelf: 'flex-end', marginTop: 320 }} 
+          onPress={handleSubmit}
         >
           <Icon
             name='ios-checkmark-circle'

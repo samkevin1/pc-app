@@ -26,7 +26,7 @@ const theme = {
 };
 
 const Login = ({navigation}) => {
-  const { email, senha } = useSelector((s) => s.auth);
+  const { email, senha, loading } = useSelector((s) => s.auth);
   const { texts } = UseLangContext();
   const dispatch = useDispatch();
 
@@ -45,14 +45,14 @@ const Login = ({navigation}) => {
       <LanguageSelect hasHeader={false} />
       <View style={{margin: 15}}>
         <View style={{alignItems:'center', marginTop:100}}>
-          <Text style={styles.title}>Login</Text>
+          <Text style={styles.title}>Entrar na Loja</Text>
             <TextInput style={styles.input}
               placeholder='Email'
               underlineColor='#D3D3D3'
               value={email}
               onChangeText={v => handleChange('email', v)}
               theme={theme}
-                />
+            />
             <TextInput style={styles.input}
               placeholder='Senha'
               underlineColor='#D3D3D3'
@@ -69,6 +69,7 @@ const Login = ({navigation}) => {
                 labelStyle={styles.labelStyle}
                 contentStyle={styles.contentStyle}
                 theme={theme}
+                loading={loading.login}
                 onPress={handleSubmit}
               />
             </TouchableOpacity>

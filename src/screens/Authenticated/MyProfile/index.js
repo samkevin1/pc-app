@@ -10,8 +10,7 @@ import { useSelector } from "react-redux";
 
 const MyProfile =({ navigation }) => {
   const { texts } = UseLangContext();
-  const user  = useSelector((s) => s.auth);
-  console.log(user.nome)
+  const { user }  = useSelector((s) => s.auth);
 
   return (
     <View style={styles.container}>
