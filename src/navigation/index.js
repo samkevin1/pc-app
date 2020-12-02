@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Auth/Login/index';
 import UserRegister from '../screens/Auth/Register/index';
-import HomePage from '../screens/Authenticated/HomePage/index';
 import BottomTabNavigator from './bottomTabNavigator';
 import { clearValues } from "../store/actions/auth";
 

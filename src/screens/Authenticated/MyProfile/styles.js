@@ -5,8 +5,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%',
-    backgroundColor: '#f5f5f5',
-    paddingTop: 15
+    backgroundColor: '#f5f5f5'
   },
   button: {
     alignSelf: 'center',
