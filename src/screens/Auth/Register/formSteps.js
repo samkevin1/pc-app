@@ -17,10 +17,6 @@ export const STEPS = [
   },
   {
     value: 5,
-    name: 'BIRTH_DATE_STEP'
-  },
-  {
-    value: 6,
     name: 'PASSWORD_STEP'
   }
 ]

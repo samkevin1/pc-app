@@ -9,6 +9,10 @@ export const LOGIN = "[AUTH] LOGIN";
 export const LOGIN_SUCCESS = "[AUTH] LOGIN_SUCCESS";
 export const LOGIN_FAILED = "[AUTH] LOGIN_FAILED";
 
+export const UPDATE_USER = "[AUTH] UPDATE_USER";
+export const UPDATE_USER_SUCCESS = "[AUTH] UPDATE_USER_SUCCESS";
+export const UPDATE_USER_ERROR = "[AUTH] UPDATE_USER_ERROR";
+
 export const REGISTER_USER = "[AUTH] REGISTER_USER";
 export const REGISTER_USER_SUCCESS = "[AUTH] REGISTER_USER_SUCCESS";
 export const REGISTER_USER_FAILED = "[AUTH] REGISTER_USER_FAILED";
@@ -59,11 +63,11 @@ export function submitLogin(callback) {
       const { email, senha } = getState().auth;
       
       api.post(eps.login, { email, senha }).then((r) => {
-        console.log(r.data.token)
+        console.log(r)
         if(r.data) {
           dispatch({
             type: LOGIN_SUCCESS,
-            payload: { token: r.data.token, user: r.data.user }
+            payload: r.data
           });
           callback && callback(false, r.data.user);
         } else {
@@ -82,6 +86,41 @@ export function submitLogin(callback) {
       });
     }
 
+  }
+}
+
+export function updateUser(callback) {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_USER
+    });
+
+    try {
+      const { user } = getState().auth
+      console.log(user)
+      const response = await api.patch(eps.usuarioUpdate, user);
+      console.log('res', response)
+
+      if(response.data.success) {
+        dispatch({
+          type: UPDATE_USER_SUCCESS,
+          payload: response.data.user
+        });
+        callback && callback(false, response.data);
+      }else{
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: "Ocorreu um erro ao editar os dados do usuário"
+        });
+        callback && callback("Ocorreu um erro ao editar os dados do usuário", false);
+      }
+    }
+    catch(error) {
+      dispatch({
+        type: UPDATE_USER_ERROR,
+        payload: String(error)
+      });
+    }
   }
 }
 

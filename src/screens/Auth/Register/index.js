@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-   Text, 
+   Text,
    View,
    Alert
 } from 'react-native';
@@ -31,7 +31,6 @@ const UserRegister = () => {
     sobrenome: '',
     email: '',
     cpf: '',
-    dataNascimento: '',
     senha: '',
     confirmPassword: ''
   });
@@ -50,7 +49,7 @@ const UserRegister = () => {
       })
     )
   }
- 
+
   const changeStep = async (action = "next", step) => {
     if(currentStep.value === STEPS[0].value && !user.nome && action === "next"){
       Alert.alert(texts.atencao, texts.inf_nome_warn);
@@ -64,13 +63,10 @@ const UserRegister = () => {
     else if(currentStep.value === STEPS[3].value && user.cpf < 1 && action === "next"){
       Alert.alert(texts.atencao, texts.inf_cpf_warn);
     }
-    else if(currentStep.value === STEPS[4].value && !user.dataNascimento && action === "next"){
-      Alert.alert(texts.atencao, texts.inf_data_nasc_warn);
-    }
-    else if(currentStep.value === STEPS[5].value && user.senha !== user.confirmPassword && action === "next"){
+    else if(currentStep.value === STEPS[4].value && user.senha !== user.confirmPassword && action === "next"){
       Alert.alert(texts.atencao, texts.senha_n_coincidem);
     }
-    else if(currentStep.value === STEPS[5].value && user.senha && user.confirmPassword && action === "next"){
+    else if(currentStep.value === STEPS[4].value && user.senha && user.confirmPassword && action === "next"){
       handleSubmit();
     }
     else {
@@ -181,27 +177,6 @@ const UserRegister = () => {
             </View>
           )}
           {currentStep.value === STEPS[4].value && (
-            <View style={{ marginTop: 35 }}>
-              <Text style={styles.text} type="text">
-                {texts.inf_data_nasc} {user.nome}?
-              </Text>
-              <TextInput
-                placeholder={texts.digite_aqui}
-                type={'datetime'}
-                id="birthDate"
-                keyboardType="date"
-                style={styles.stepInput}
-                enableMask
-                placeholderTextColor="#757575"
-                options={{
-                  format: 'DD/MM/YYYY'
-                }}
-                value={user.dataNascimento}
-                onChangeText={(value) => handleChangeUser("dataNascimento", value)}
-              />
-            </View>
-          )}
-          {currentStep.value === STEPS[5].value && (
             <View style={{ marginTop: 35 }}>
               <Text style={styles.text}>
                 {texts.inf_senha}

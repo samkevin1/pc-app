@@ -11,10 +11,10 @@ const LanguageSelect = ({ hasHeader }) => {
     const styles = StyleSheet.create({
         select: {
             position: 'absolute',
-            top: hasHeader ? '40px' : '16px',
-            right: hasHeader ? '55px' : '20px',
+            top: hasHeader ? 40 : 16,
+            right: hasHeader ? 55 : 20,
             zIndex: 9999,
-            width: '78px'
+            width: 78
         }
     });
 

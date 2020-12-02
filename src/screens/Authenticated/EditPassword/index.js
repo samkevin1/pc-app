@@ -1,14 +1,17 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Alert } from "react-native";
 import styles from './styles';
 import Text from '../../../components/Text/index';
 import { Icon } from 'react-native-elements'
 import { TextInput, DefaultTheme } from 'react-native-paper';
 import { Formik } from 'formik';
 import { UseLangContext } from '../../../contexts/LangContext';
+import { useSelector } from 'react-redux';
 
 const EditPassword =({ navigation }) => {
   const { texts } = UseLangContext();
+  const { user } = useSelector((s) => s.auth);
+  console.log(user)
 
   const theme = {
     ...DefaultTheme,
@@ -24,7 +27,7 @@ const EditPassword =({ navigation }) => {
 
   return (
     <Formik
-      initialValues={{ currentPassword: '', newPassword: '', confirmPassword: '' }}
+      initialValues={{ currentPassword: user.senha, newPassword: '', confirmPassword: '' }}
       onSubmit={values => console.log(values)}
     >
       {({ handleChange, handleSubmit, values, touched }) => (
@@ -92,8 +95,8 @@ const EditPassword =({ navigation }) => {
             </View>
             <Text></Text>
             <TouchableOpacity 
-              style={{alignSelf: 'flex-end', marginTop:390}} 
-              onPress={values.confirmPassword === values.newPassword && values.confirmPassword !== '' ? () =>  handleSubmit(navigation.navigate("Home")) : console.log("Senha errada")}
+              style={{alignSelf: 'flex-end', marginTop:360}} 
+              onPress={values.confirmPassword === values.newPassword || values.confirmPassword !== '' ? () =>  handleSubmit(navigation.navigate("Home")) : console.log("Senha incorreta")}
             >
               <Icon
                 name='ios-checkmark-circle'

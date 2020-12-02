@@ -5,13 +5,16 @@ import Login from '../screens/Auth/Login/index';
 import UserRegister from '../screens/Auth/Register/index';
 import HomePage from '../screens/Authenticated/HomePage/index';
 import BottomTabNavigator from './bottomTabNavigator';
+import { clearValues } from "../store/actions/auth";
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Stack = createStackNavigator();
 
 export default function Routes() {
   const { token } = useSelector((s) => s.auth);
+  const dispatch = useDispatch();
+  //dispatch(clearValues());
 
   if(token)
     return (

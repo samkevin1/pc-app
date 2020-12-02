@@ -25,6 +25,7 @@ export const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         token: payload.token,
+        user: payload.data,
         loading: { ...state.loading, login: false },
       };
     case actions.REGISTER_USER: {
@@ -64,6 +65,24 @@ export const reducer = (state = initialState, { type, payload }) => {
       return {
         ...initialState,
       };
+    case actions.UPDATE_USER:
+      return{
+        ...state,
+        loading: { ...state.loading, update: true },
+        user: payload
+      }
+    case actions.UPDATE_USER_SUCCESS:
+      return{
+        ...state,
+        loading: { ...state.loading, update: false },
+        user: payload
+      }
+    case actions.UPDATE_USER_ERROR:
+      return{
+        ...state,
+        loading: { ...state.loading, update: false },
+        errors: payload
+      }
     default:
       return state;
   }

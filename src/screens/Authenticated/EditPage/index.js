@@ -4,8 +4,11 @@ import styles from './styles';
 import Text from '../../../components/Text/index';
 import { Icon } from 'react-native-elements'
 import { UseLangContext } from '../../../contexts/LangContext';
+import { useSelector } from 'react-redux';
 
 const EditPage =({ navigation }) => {
+  const { user } = useSelector((s) => s.auth);
+
   const { texts } = UseLangContext();
 
   return (

@@ -15,7 +15,7 @@ const Details = ({ navigation, route }) => {
   const { product } = route.params;
   const dispatch = useDispatch();
 
-  const price = parseInt(product.vista) + 500;
+  const price = parseInt(product.vista) + 600;
   const discount = Math.round((parseInt(product.prazo) - parseInt(product.vista)) / parseInt(product.prazo) * 100);
 
   const handleAddToCart = (data) => {

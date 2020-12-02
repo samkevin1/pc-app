@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import styles from './styles';
@@ -6,9 +6,12 @@ import Text from '../../../components/Text/index';
 import Header from "../../../components/Header/index";
 import GoBack from "../../../components/GoBack/index";
 import { UseLangContext } from '../../../contexts/LangContext';
+import { useSelector } from "react-redux";
 
 const MyProfile =({ navigation }) => {
   const { texts } = UseLangContext();
+  const user  = useSelector((s) => s.auth);
+  console.log(user.nome)
 
   return (
     <View style={styles.container}>
@@ -24,7 +27,7 @@ const MyProfile =({ navigation }) => {
             />
           </View>
           <Text style={styles.title}>
-            {texts.nome_usuario}
+            {user.nome} {user.sobrenome}
           </Text>
           <TouchableOpacity style={{ marginTop: 15 }} onPress={() => navigation.navigate("EditPage")}>
             <View style={styles.button}>
