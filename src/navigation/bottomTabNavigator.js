@@ -81,6 +81,61 @@ function HomeNavigator() {
           }
         }
       />
+      <FeedStack.Screen
+        name="MyProfile"
+        component={MyProfile}
+        options={
+            {
+                headerTitle: texts.meu_perfil,
+                headerStyle: { backgroundColor: '#FFFF' },
+                headerTitleStyle: { fontSize: 20, color: "#414141" }
+            }
+        }
+    />
+    <FeedStack.Screen
+        name="EditPage"
+        component={EditPage}
+        options={
+            {
+                headerTitle: texts.edit_page,
+                headerStyle: { backgroundColor: '#FFFF' },
+                headerTitleStyle: { fontSize: 20, color: "#414141" }
+            }
+        }
+    />
+    <FeedStack.Screen
+        name="EditPassword"
+        component={EditPassword}
+        options={
+            {
+                headerTitle: texts.edit_pass,
+                headerStyle: { backgroundColor: '#FFFF' },
+                headerTitleStyle: { fontSize: 20, color: "#414141" }
+            }
+        }
+    />
+    <FeedStack.Screen
+        name="EditData"
+        component={EditData}
+        options={
+            {
+                headerTitle: texts.edit_data,
+                headerStyle: { backgroundColor: '#FFFF' },
+                headerTitleStyle: { fontSize: 20, color: "#414141" }
+            }
+        }
+    />
+    <FeedStack.Screen
+        name="MyPurchases"
+        component={MyPurchases}
+        options={
+            {
+                headerTitle: texts.my_purchases,
+                headerStyle: { backgroundColor: '#FFFF' },
+                headerTitleStyle: { fontSize: 20, color: "#414141" }
+            }
+        }
+    />
     </FeedStack.Navigator>
   );
 }

@@ -103,7 +103,7 @@ const EditData =({ navigation }) => {
               </View>
             </View>
             <TouchableOpacity 
-              style={{alignSelf: 'flex-end', marginTop:330}} 
+              style={{alignSelf: 'flex-end', marginTop:280}}
               onPress={() => handleSubmit(navigation.navigate("Home"))}
             >
               <Icon

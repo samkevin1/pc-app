@@ -92,7 +92,7 @@ const EditPassword =({ navigation }) => {
             </View>
             <Text></Text>
             <TouchableOpacity 
-              style={{alignSelf: 'flex-end', marginTop:390}} 
+              style={{alignSelf: 'flex-end', marginTop:280}}
               onPress={values.confirmPassword === values.newPassword && values.confirmPassword !== '' ? () =>  handleSubmit(navigation.navigate("Home")) : console.log("Senha errada")}
             >
               <Icon
